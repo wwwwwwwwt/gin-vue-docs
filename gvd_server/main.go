@@ -2,7 +2,7 @@
  * @Author: zzzzztw
  * @Date: 2023-07-03 14:15:55
  * @LastEditors: Do not edit
- * @LastEditTime: 2023-07-03 15:14:09
+ * @LastEditTime: 2023-07-03 20:13:16
  * @FilePath: /gvd_server/main.go
  */
 package main
@@ -15,10 +15,16 @@ import (
 )
 
 func main() {
+
+	//加载日志
 	global.Log = new(global.LogServer)
 	global.Log.Logger = core.InitLogger()
 	global.Config = core.InitConfig()
-	global.Log.Infof("xxx")
+
+	//加载mysql和redis
+	global.DB = core.InitMysql()
+	global.Redis = core.InitRedis()
+
 	fmt.Println(global.Config)
 	router := routers.Routers()
 	addr := global.Config.System.Addr()

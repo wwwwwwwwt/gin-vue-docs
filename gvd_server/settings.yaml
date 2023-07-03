@@ -2,4 +2,16 @@ system:
   ip: ""
   port: 8082
   env: "dev"
-  
+mysql:
+  host: 127.0.0.1 # 如果不配置host就不会连接 mysql
+  port: 3306
+  config: charset=utf8mb4&parseTime=True&loc=Local
+  db: gvd_db
+  username: root
+  password: 123456
+  logLevel: error
+redis:
+  ip : 127.0.0.1
+  port: 6379
+  password: ""
+  poolsize: 100
