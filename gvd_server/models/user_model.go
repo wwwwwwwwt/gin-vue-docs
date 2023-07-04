@@ -2,7 +2,7 @@
  * @Author: zzzzztw
  * @Date: 2023-07-03 21:04:37
  * @LastEditors: Do not edit
- * @LastEditTime: 2023-07-04 09:32:35
+ * @LastEditTime: 2023-07-04 12:31:28
  * @FilePath: /gvd_server/models/user_model.go
  */
 package models
@@ -18,5 +18,5 @@ type UserModel struct {
 	IP        string    `gorm:"column:ip;size:16" json:"ip"`                             //ip
 	Addr      string    `gorm:"column:addr;size:64" json:"addr"`                         //地址
 	RoleID    uint      `gorm:"column:roleId" json:"roleId"`                             //用户对应角色
-	RoleModel RoleModel `gorm:"foreignKey; RoleId" json:"-"`
+	RoleModel RoleModel `gorm:"foreignKey:RoleID" json:"-"`
 }

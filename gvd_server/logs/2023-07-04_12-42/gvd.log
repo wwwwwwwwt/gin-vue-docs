@@ -1,0 +1,1 @@
+[2023-07-04 12:42:45] [31m[fatal][0m flags_db.go:23 gvd_server/flags.DB 数据库迁移失败,err: Error 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'COMMENT '父文档',`freeContent` longtext COMMENT '预览部分',PRIMARY KEY (`' at line 1
