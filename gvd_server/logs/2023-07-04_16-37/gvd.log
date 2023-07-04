@@ -1,1 +1,0 @@
-[2023-07-04 16:37:01] [31m[fatal][0m flags_db.go:25 gvd_server/flags.DB 数据库迁移失败,err: Error 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key

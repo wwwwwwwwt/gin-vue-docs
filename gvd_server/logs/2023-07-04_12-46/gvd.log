@@ -1,2 +1,0 @@
-[2023-07-04 12:46:00] [31m[fatal][0m flags_db.go:24 gvd_server/flags.DB 数据库迁移失败,err: invalid field found for struct gvd_server/models.DocModel's field ParentModel: define a valid foreign key for relations or implement the Valuer/Scanner interface
-[2023-07-04 12:46:30] [31m[fatal][0m flags_db.go:24 gvd_server/flags.DB 数据库迁移失败,err: invalid field found for struct gvd_server/models.DocModel's field ParentModel: define a valid foreign key for relations or implement the Valuer/Scanner interface

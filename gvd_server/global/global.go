@@ -2,7 +2,7 @@
  * @Author: zzzzztw
  * @Date: 2023-07-03 14:26:30
  * @LastEditors: Do not edit
- * @LastEditTime: 2023-07-03 19:16:38
+ * @LastEditTime: 2023-07-04 21:30:24
  * @FilePath: /gvd_server/global/global.go
  */
 package global

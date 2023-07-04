@@ -275,3 +275,7 @@ type DocDataModel struct {
 }
 
 ```
+
+## jwt 全程是json web ， 主要用于用户登录鉴权
+
+## 用户管理api
