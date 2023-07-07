@@ -2,8 +2,8 @@
  * @Author: zzzzztw
  * @Date: 2023-07-04 22:06:09
  * @LastEditors: Do not edit
- * @LastEditTime: 2023-07-05 22:20:20
- * @FilePath: /gvd_server/api/user_api/user_create.go
+ * @LastEditTime: 2023-07-07 22:00:51
+ * @FilePath: /gvdoc/gvd_server/api/user_api/user_create.go
  */
 package userapi
 
@@ -15,7 +15,7 @@ import (
 
 type UserCreateRequest struct {
 	UserName string `json:"userName" bidning:"required"` //用户名
-	Password string `json:"password"`                    //密码
+	Password string `json:"password" binding:"required"` //密码
 	NickName string `json:"nickName"`                    //昵称
 	RoleID   uint   `json:"roleID" binding:"required"`   //角色id
 }
