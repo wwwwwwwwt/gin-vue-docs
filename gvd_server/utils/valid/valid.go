@@ -2,7 +2,7 @@
  * @Author: zzzzztw
  * @Date: 2023-07-07 22:54:03
  * @LastEditors: Do not edit
- * @LastEditTime: 2023-07-08 00:20:37
+ * @LastEditTime: 2023-07-08 00:36:29
  * @FilePath: /gin-vue-docs/gvd_server/utils/valid/valid.go
  */
 package valid
@@ -134,8 +134,24 @@ func ValidError(err error, obj any) (ret string, data map[string]string) {
 	}
 
 	//通过反射拿到obj的类型
+	getobj := reflect.TypeOf(obj)
 
 	for _, e := range validationErrors {
+		f, exits := getobj.Elem().FieldByName(e.Field())
+		msg := e.Translate(trans)
+		filedname := e.Field()
+		// 需要将Name替换为alias
+		//先取tag
+		alias := filedname
+		label, tagok := f.Tag.Lookup("label")
+		jsonField, jsonOk := f.Tag.Lookup("json")
+		if tagok {
+			alias = label
+		} else {
+			if jsonOk {
+				alias = jsonField
+			}
+		}
 		ret += e.Translate(trans) + ";"
 	}
 	return ret, data
