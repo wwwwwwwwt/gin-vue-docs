@@ -2,24 +2,28 @@
  * @Author: zzzzztw
  * @Date: 2023-07-05 21:37:15
  * @LastEditors: Do not edit
- * @LastEditTime: 2023-07-05 22:15:37
- * @FilePath: /gvd_server/service/common/res/enter.go
+ * @LastEditTime: 2023-07-08 00:18:31
+ * @FilePath: /gin-vue-docs/gvd_server/service/common/res/enter.go
  */
 package res
 
 import (
+	"gvd_server/utils/valid"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
+type Code int
+
 const (
-	Success = 0
-	Failed  = 7
+	Success   Code = 0
+	ErrorCode Code = 7 //系统错误
+	ValidCode Code = 9 // 校验错误
 )
 
 type Response struct {
-	Code int    `json:"code"`
+	Code Code   `json:"code"`
 	Data any    `json:"data"`
 	Msg  string `json:"msg"`
 }
@@ -65,7 +69,7 @@ func OKWithList() {
 
 }
 
-func Fail(code int, data any, msg string, c *gin.Context) {
+func Fail(code Code, data any, msg string, c *gin.Context) {
 	c.JSON(http.StatusOK, Response{
 		Code: code,
 		Data: data,
@@ -74,13 +78,18 @@ func Fail(code int, data any, msg string, c *gin.Context) {
 }
 
 func FailWithMsg(msg string, c *gin.Context) {
-	Fail(Failed, map[string]any{}, msg, c)
+	Fail(ErrorCode, map[string]any{}, msg, c)
 }
 
-func FailWithError(msg string, obj any, c *gin.Context) {
-
+func FailWithError(err error, obj any, c *gin.Context) {
+	errmsg := valid.Error(err)
+	FailWithMsg(errmsg, c)
 }
 
 func FailWithData(data any, c *gin.Context) {
-	Fail(Failed, data, "系统错误", c)
+	Fail(ErrorCode, data, "系统错误", c)
+}
+
+func FailWithValidError(err error, obj any, c *gin.Context) {
+
 }

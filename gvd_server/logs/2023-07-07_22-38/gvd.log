@@ -1,0 +1,2 @@
+[2023-07-07 22:38:16] [31m[error][0m init_gorm.go:60 gvd_server/core.InitMysql [root:123456@tcp(127.0.0.1:3306)/gvd_db?charset=utf8mb4&parseTime=True&loc=Local] mysql连接失败
+[2023-07-07 22:38:16] [31m[fatal][0m init_gorm.go:61 gvd_server/core.InitMysql [root:123456@tcp(127.0.0.1:3306)/gvd_db?charset=utf8mb4&parseTime=True&loc=Local] mysql连接失败, err: dial tcp 127.0.0.1:3306: connect: connection refused
