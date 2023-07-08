@@ -2,8 +2,8 @@
  * @Author: zzzzztw
  * @Date: 2023-07-07 22:54:03
  * @LastEditors: Do not edit
- * @LastEditTime: 2023-07-08 00:36:29
- * @FilePath: /gin-vue-docs/gvd_server/utils/valid/valid.go
+ * @LastEditTime: 2023-07-08 10:07:32
+ * @FilePath: /gvdoc/gvd_server/utils/valid/valid.go
  */
 package valid
 
@@ -33,18 +33,18 @@ func InitTrans(local string) (err error) {
 	// 修改gin框架中的Validator引擎属性，实现自定制
 	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
 
-		//注册一个获取json tag的自定义方法
-		v.RegisterTagNameFunc(func(fld reflect.StructField) string {
-			name := strings.SplitN(fld.Tag.Get("label"), ",", 2)[0]
-			if name == "" {
-				//没有label
-				name = strings.SplitN(fld.Tag.Get("json"), ",", 2)[0]
-			}
-			if name == "-" {
-				return ""
-			}
-			return name
-		})
+		// //注册一个获取json tag的自定义方法
+		// v.RegisterTagNameFunc(func(fld reflect.StructField) string {
+		// 	name := strings.SplitN(fld.Tag.Get("label"), ",", 2)[0]
+		// 	if name == "" {
+		// 		//没有label
+		// 		name = strings.SplitN(fld.Tag.Get("json"), ",", 2)[0]
+		// 	}
+		// 	if name == "-" {
+		// 		return ""
+		// 	}
+		// 	return name
+		// })
 
 		zhT := zh.New() // 创建中文翻译器
 		enT := en.New() // 创建英文翻译器
@@ -118,41 +118,53 @@ func Error(err error) (ret string) {
 	}
 
 	for _, e := range validationErrors {
-		ret += e.Translate(trans) + ";"
+		msg := e.Translate(trans)
+		ret += msg + ";"
+		fmt.Println(msg, e.Field())
 	}
 	return ret
 }
 
 func ValidError(err error, obj any) (ret string, data map[string]string) {
 
-	data = make(map[string]string)
+	data = map[string]string{}
 
+	//通过反射拿到obj的类型
+	getobj := reflect.TypeOf(obj)
 	validationErrors, ok := err.(validator.ValidationErrors)
 
 	if !ok {
 		return err.Error(), data
 	}
-
-	//通过反射拿到obj的类型
-	getobj := reflect.TypeOf(obj)
-
 	for _, e := range validationErrors {
-		f, exits := getobj.Elem().FieldByName(e.Field())
 		msg := e.Translate(trans)
 		filedname := e.Field()
-		// 需要将Name替换为alias
-		//先取tag
-		alias := filedname
-		label, tagok := f.Tag.Lookup("label")
-		jsonField, jsonOk := f.Tag.Lookup("json")
-		if tagok {
-			alias = label
-		} else {
+
+		f, ok := getobj.Elem().FieldByName(filedname)
+		fmt.Println(f)
+		if ok {
+
+			// 需要将Name替换为alias
+			//先取tag
+			alias := filedname
+			label, labelok := f.Tag.Lookup("label")
+			jsonField, jsonOk := f.Tag.Lookup("json")
+
+			if labelok {
+				alias = label
+			} else {
+				if jsonOk {
+					alias = jsonField
+				}
+			}
+			msg = strings.ReplaceAll(msg, filedname, alias)
 			if jsonOk {
-				alias = jsonField
+				data[jsonField] = msg
 			}
 		}
-		ret += e.Translate(trans) + ";"
+
+		ret += msg + ";"
+
 	}
 	return ret, data
 }

@@ -2,8 +2,8 @@
  * @Author: zzzzztw
  * @Date: 2023-07-05 21:37:15
  * @LastEditors: Do not edit
- * @LastEditTime: 2023-07-08 00:18:31
- * @FilePath: /gin-vue-docs/gvd_server/service/common/res/enter.go
+ * @LastEditTime: 2023-07-08 09:45:04
+ * @FilePath: /gvdoc/gvd_server/service/common/res/enter.go
  */
 package res
 
@@ -91,5 +91,6 @@ func FailWithData(data any, c *gin.Context) {
 }
 
 func FailWithValidError(err error, obj any, c *gin.Context) {
-
+	errmsg, data := valid.ValidError(err, obj)
+	Fail(ValidCode, data, errmsg, c)
 }
