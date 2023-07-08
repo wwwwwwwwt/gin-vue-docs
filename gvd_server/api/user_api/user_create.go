@@ -2,7 +2,7 @@
  * @Author: zzzzztw
  * @Date: 2023-07-04 22:06:09
  * @LastEditors: Do not edit
- * @LastEditTime: 2023-07-08 11:21:34
+ * @LastEditTime: 2023-07-08 12:35:07
  * @FilePath: /gvdoc/gvd_server/api/user_api/user_create.go
  */
 package userapi
@@ -11,6 +11,7 @@ import (
 	"gvd_server/global"
 	"gvd_server/models"
 	"gvd_server/service/common/res"
+	"gvd_server/utils/pwd"
 
 	"github.com/gin-gonic/gin"
 )
@@ -41,7 +42,7 @@ func (UserApi) UserCreateView(c *gin.Context) {
 
 	err = global.DB.Create(&models.UserModel{
 		UserName: cr.UserName,
-		Password: cr.Password,
+		Password: pwd.HashPwd(cr.Password),
 		NickName: cr.NickName,
 		IP:       c.RemoteIP(),
 		RoleID:   cr.RoleID,
