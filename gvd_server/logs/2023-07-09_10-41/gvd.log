@@ -1,0 +1,1 @@
+[2023-07-09 10:41:30] [31m[error][0m user_create.go:51 gvd_server/api/user_api.UserApi.UserCreateView Error 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`gvd_db`.`user_models`, CONSTRAINT `fk_user_models_role_model` FOREIGN KEY (`roleID`) REFERENCES `role_models` (`id`))
