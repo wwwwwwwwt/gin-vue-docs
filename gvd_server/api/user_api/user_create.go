@@ -2,7 +2,7 @@
  * @Author: zzzzztw
  * @Date: 2023-07-04 22:06:09
  * @LastEditors: Do not edit
- * @LastEditTime: 2023-07-09 10:40:20
+ * @LastEditTime: 2023-07-09 12:39:30
  * @FilePath: /gvdoc/gvd_server/api/user_api/user_create.go
  */
 package userapi
@@ -46,8 +46,8 @@ func (UserApi) UserCreateView(c *gin.Context) {
 		global.DB.Model(models.UserModel{}).Select("max(id)").Scan(&maxID)
 		cr.NickName = fmt.Sprintf("用户_%d", maxID+1)
 	}
-	var role models.RoleDocModel
-	err = global.DB.Take(&role, cr.RoleID).Error
+	var role models.RoleModel
+	err = global.DB.Take(&role, "id = ?", cr.RoleID).Error
 	if err != nil {
 		res.FailWithMsg("角色不存在", c)
 		return

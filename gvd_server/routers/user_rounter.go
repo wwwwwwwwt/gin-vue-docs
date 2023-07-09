@@ -2,14 +2,17 @@
  * @Author: zzzzztw
  * @Date: 2023-07-04 22:20:06
  * @LastEditors: Do not edit
- * @LastEditTime: 2023-07-04 22:26:11
- * @FilePath: /gvd_server/routers/user_rounter.go
+ * @LastEditTime: 2023-07-09 13:12:16
+ * @FilePath: /gvdoc/gvd_server/routers/user_rounter.go
  */
 package routers
 
-import "gvd_server/api"
+import (
+	"gvd_server/api"
+)
 
 func (router RounterGroup) UserRouter() {
 	app := api.App.UserApi
-	router.POST("user", app.UserCreateView)
+	router.POST("user", app.UserCreateView) //创建用户
+	router.POST("login", app.UserLoginView) // 用户登录
 }
