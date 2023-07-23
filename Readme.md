@@ -276,7 +276,7 @@ type DocDataModel struct {
 
 ```
 
-## jwt 全程是json web ， 主要用于用户登录鉴权
+## jwt 全程是json web token， 主要用于用户登录鉴权
 
 ## 用户管理api(/api  /service)
 1. api：
@@ -285,7 +285,7 @@ type DocDataModel struct {
 2. service：
 * common：enter.go: 定义了我们使用回复报文的方法
 
-## 创建自定义翻译器， uyils/valid/valid.go
+## 创建自定义翻译器， utils/valid/valid.go
 
 ```go
 package valid
